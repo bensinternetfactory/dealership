@@ -10,6 +10,7 @@ import Link from "next/link";
 import { Popover } from "@radix-ui/react-popover";
 import { PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const frameworks = [
 	{
@@ -52,35 +53,32 @@ export default function NewTruck() {
 						<label htmlFor="" className="text-base font-semibold leading-6 text-gray-900">
 							Select truck make
 						</label>
-						<Popover open={open} onOpenChange={setOpen}>
-							<PopoverTrigger asChild>
-								<Button variant="outline" role="combobox" aria-expanded={open} className="flex justify-between">
-									{value ? frameworks.find((framework) => framework.value === value)?.label : "Select make..."}
-									<ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
-								</Button>
-							</PopoverTrigger>
-							<PopoverContent className="w-[200px] p-0">
-								<Command>
-									<CommandInput placeholder="Search framework..." />
-									<CommandEmpty>No framework found.</CommandEmpty>
-									<CommandGroup>
-										{frameworks.map((framework) => (
-											<CommandItem
-												key={framework.value}
-												onSelect={(currentValue) => {
-													setValue(currentValue === value ? "" : currentValue);
-													setOpen(false);
-												}}>
-												<Check className={cn("mr-2 h-4 w-4", value === framework.value ? "opacity-100" : "opacity-0")} />
-												{framework.label}
-											</CommandItem>
-										))}
-									</CommandGroup>
-								</Command>
-							</PopoverContent>
-						</Popover>
+						<Select>
+							<SelectTrigger className="flex">
+								<SelectValue placeholder="Select make..." />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="light">Light</SelectItem>
+								<SelectItem value="dark">Dark</SelectItem>
+								<SelectItem value="system">System</SelectItem>
+							</SelectContent>
+						</Select>
 					</div>
-					<div>Select box here</div>
+					<div className="flex flex-col gap-4 ">
+						<label htmlFor="" className="text-base font-semibold leading-6 text-gray-900">
+							Select truck model
+						</label>
+						<Select>
+							<SelectTrigger className="flex">
+								<SelectValue placeholder="Select model..." />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="light">Light</SelectItem>
+								<SelectItem value="dark">Dark</SelectItem>
+								<SelectItem value="system">System</SelectItem>
+							</SelectContent>
+						</Select>
+					</div>
 					<div>select box here</div>
 				</div>
 			</form>
